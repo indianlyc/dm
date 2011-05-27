@@ -1,24 +1,19 @@
+#-*- coding: utf-8 -*-
+# чтобы можно было в файле писать по-русский
 # Django settings for dm project.
 
-DEBUG = False #True
+from os import path
+PATH_PROJECT = path.dirname(__file__) + '/' # Получаем путь до текущего файла, считаем что файл settings лежит в папке проекта, в нашем случае в dm.
+
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-ADMINS = ( ('dm', 'dmitriy.shikhalev@gmail.com')
+ADMINS = (
+    ('dm', 'dmitriy.shikhalev@gmail.com'),
     # ('Your Name', 'your_email@domain.com'),
 )
 
 MANAGERS = ADMINS
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'my_db',                      # Or path to database file if using sqlite3.
-        'USER': 'sites',                      # Not used with sqlite3.
-        'PASSWORD': '123',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-    }
-}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -31,7 +26,7 @@ TIME_ZONE = 'Asia/Yekaterinburg'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'ru-RU'
+LANGUAGE_CODE = 'ru-ru'
 
 SITE_ID = 1
 
@@ -45,17 +40,17 @@ USE_L10N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = '/home/elena/sites/dm/'
+MEDIA_ROOT = PATH_PROJECT + 'media' # медиа файлы располагаются в папке dm/media
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = 'http://dmitriy-shikhalev.ru' # ?????????????????
+MEDIA_URL = '/media/' # для загрузки медиа сайту нужно обратиться по этому url
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/media/'
+ADMIN_MEDIA_PREFIX = '/admin_media/' # url по которому нужно обращаться админке до своих файлов, должен отличаться от MEDIA_URL
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '&&$m(ke!7!ju7ofm!ydlm=4675h)%pw378*4(9s&bf-p(p06sl'
@@ -77,9 +72,10 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'dm.urls'
 
+
 TEMPLATE_DIRS = (
-    '/home/elena/mytemplates',
-    '/home/elena/sites/template',
+    # общие для всех приложений шаблоны удобно располагать в папке dm/templates.
+    PATH_PROJECT + 'templates',
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -91,9 +87,15 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
+    # админку лучше подключать до собственных приложений.
+    'django.contrib.admin',
     'polls',
     # Uncomment the next line to enable the admin:
-    'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
+
+try:
+    from local_settings import *
+except ImportError:
+    pass

@@ -1,2 +1,4 @@
 *.pyc
 *.pyo
+local_settings.py
+media/uploads/*
