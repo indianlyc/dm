@@ -3,7 +3,8 @@
 # Django settings for dm project.
 
 from os import path
-PATH_PROJECT = path.dirname(__file__) + '/' # Получаем путь до текущего файла, считаем что файл settings лежит в папке проекта, в нашем случае в dm.
+PATH_PROJECT = path.dirname(__file__) + '/' # Получаем путь до текущего файла, считаем что файл settings
+                                            # лежит в папке проекта, в нашем случае в dm.
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -50,7 +51,8 @@ MEDIA_URL = '/media/' # для загрузки медиа сайту нужно
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/admin_media/' # url по которому нужно обращаться админке до своих файлов, должен отличаться от MEDIA_URL
+ADMIN_MEDIA_PREFIX = '/admin_media/' # url по которому нужно обращаться админке до своих
+                                     # файлов, должен отличаться от MEDIA_URL
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '&&$m(ke!7!ju7ofm!ydlm=4675h)%pw378*4(9s&bf-p(p06sl'
